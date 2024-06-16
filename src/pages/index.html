@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../components/ContainerCards.css">
+    <link rel="stylesheet" href="../components/Cards.css">
+</head>
+<body>
+    <section>
+        <div class="cards" onclick="redirect('#')">
+            <p class="title">Back-end Software engineer Jr</p>
+            <p class="description">Forin</p>
+            <a href="#">Colombia</a>
+        </div>
+    </section>
+</body>
+<script>
+    function redirect(link) {
+        if (typeof link === 'string') {
+            window.location.href = link;
+        } else {
+            console.error('Error: Expected link to be a string.');
+        }
+    }
+</script>
+</html>
