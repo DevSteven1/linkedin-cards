@@ -1,0 +1,897 @@
+<!-- <%-- 
+    Document   : HomeEgresados_UI
+    Created on : 4/05/2024, 10:56:45 AM
+    Author     : ASUS
+--%>
+<%@page import="Controladores.PaisesJpaController"%>
+<%@page import="Entidades.Paises"%>
+<%@page import="Controladores.NivelSalarioJpaController"%>
+<%@page import="Entidades.NivelSalario"%>
+<%@page import="Controladores.EgresadoJpaController"%>
+<%@page import="Entidades.Egresado"%>
+<%@page import="Entidades.NivelFormacion"%>
+<%@page import="Entidades.Ciudad"%>
+<%@page import="Entidades.Formacion"%>
+<%@page import="Entidades.Sede"%>
+<%@page import="Entidades.TipoPoblacion"%>
+<%@page import="Entidades.Sexo"%>
+<%@page import="java.util.List"%>
+<%@page import="Entidades.Tipodocumento"%>
+<%@page import="Controladores.TipoPoblacionJpaController"%>
+<%@page import="Controladores.NivelFormacionJpaController"%>
+<%@page import="Controladores.CiudadJpaController"%>
+<%@page import="Controladores.FormacionJpaController"%>
+<%@page import="Controladores.SedeJpaController"%>
+<%@page import="Controladores.SexoJpaController"%>
+<%@page import="Controladores.TipodocumentoJpaController"%>
+<%@page import="Entidades.Usuarios"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%> -->
+<!DOCTYPE html>
+<!-- <% -->
+    <!-- response.setHeader("Cache-Control", "no-Cache,no-store,must-revalidate");
+    HttpSession sessionObtenida = request.getSession();
+    Usuarios usuarioEntrante = new Usuarios();
+    if (sessionObtenida.getAttribute("Egresado") == null) {
+        response.sendRedirect("../index.jsp");
+    } else {
+
+        usuarioEntrante = (Usuarios) sessionObtenida.getAttribute("Egresado");
+
+        TipodocumentoJpaController controlTipoDoc = new TipodocumentoJpaController();
+        SexoJpaController controlSexo = new SexoJpaController();
+        SedeJpaController controlSede = new SedeJpaController();
+        FormacionJpaController controlFormacion = new FormacionJpaController();
+        CiudadJpaController controlCiudad = new CiudadJpaController();
+        NivelFormacionJpaController controlNivelFomacion = new NivelFormacionJpaController();
+        TipoPoblacionJpaController controlTipoPoblacion = new TipoPoblacionJpaController();
+        NivelSalarioJpaController controlNivelSalario = new NivelSalarioJpaController();
+        PaisesJpaController controlPaises = new PaisesJpaController();
+
+        EgresadoJpaController controlEgrasado = new EgresadoJpaController();
+        Integer IdEgrsado = usuarioEntrante.getCedula();
+        String IdStr = String.valueOf(IdEgrsado);
+        Long IdLong = Long.parseLong(IdStr);
+
+        Egresado EgresadoEnonctrado = controlEgrasado.findEgresado(IdLong);
+
+        List<Tipodocumento> listaTipoDoc = controlTipoDoc.findTipodocumentoEntities();
+        List<Sexo> listaSexo = controlSexo.findSexoEntities();
+        List<TipoPoblacion> listaTipoPoblacion = controlTipoPoblacion.findTipoPoblacionEntities();
+        List<Sede> ListaSedes = controlSede.findSedeEntities();
+        List<Formacion> listaFormacion = controlFormacion.findFormacionEntities();
+        List<Ciudad> listaCiudades = controlCiudad.findCiudadEntities();
+        List<NivelFormacion> listaNivelFormacion = controlNivelFomacion.findNivelFormacionEntities();
+        List<NivelSalario> ListaNivelSlario = controlNivelSalario.findNivelSalarioEntities();
+        List<Paises> ListsPaises = controlPaises.findPaisesEntities();
+        String DescripcionSemillero = (EgresadoEnonctrado.getDescripcionSemillero() != null) ? EgresadoEnonctrado.getDescripcionSemillero() : "";
+        String DescripcionInvestigacion = (EgresadoEnonctrado.getDescripcionInvestigacion() != null) ? EgresadoEnonctrado.getDescripcionInvestigacion() : "";
+        String DescripcionIndependiente = (EgresadoEnonctrado.getDescripcionIndependientes()) != null ? EgresadoEnonctrado.getDescripcionIndependientes() : "";
+        String DescripcionExperiencia = (EgresadoEnonctrado.getDescripcionExperiencia()) != null ? EgresadoEnonctrado.getDescripcionExperiencia() : "";
+        String FormacionCursada = EgresadoEnonctrado.getFormacionCursada() != null ? EgresadoEnonctrado.getFormacionCursada() : "";
+        String nombreUniversidad = EgresadoEnonctrado.getNombreUniversidad() != null ? EgresadoEnonctrado.getNombreUniversidad() : "";
+        String Carrera = EgresadoEnonctrado.getNombreCarrera() != null ? EgresadoEnonctrado.getNombreCarrera() : "";
+%> -->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="shortcut icon" href="../IMG/work-from-home.webp" type="image/x-icon">
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="../CSS/UsuarioConectado.css"/>
+        <link rel="stylesheet" href="../CSS/HomeAdministrador.css"/>
+        <link rel="stylesheet" href="../CSS/Footer.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="../CSS/UsuarioConectado.css"/>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="./input.css">
+        <title>Home Egresados</title>
+    </head>
+    <style>
+    
+.input{
+  border: solid 1.5px black;
+ background: none;
+ padding: 1rem;
+ width: 100vh;
+ font-size: 1rem;
+ color: black;
+ transition: border 150ms cubic-bezier(0.4,0,0.2,1);
+  
+  &-group{
+   position: relative;
+}
+  &:focus, &:valid{
+    outline: none;
+ border: 1.5px solid #000000;
+  }
+}
+
+.input:focus ~ label, input:valid ~ label {
+ transform: translateY(-50%) scale(0.8);
+ background-color: white;
+ padding: 0 .2em;
+ color: black;
+}
+
+.user-label {
+ position: absolute;
+ left: 15px;
+ color: black;
+ pointer-events: none;
+ transform: translateY(1rem);
+ transform: translateY(-50%) scale(0.9);
+ background-color: white;
+ padding: 0 .2em;
+ color: black;
+ transition: 150ms cubic-bezier(0.4,0,0.2,1);
+
+ switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    /* Hide default HTML checkbox */
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    /* The slider */
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked+.slider {
+      background-color: #2196F3;
+    }
+
+    input:focus+.slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked+.slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+}
+  </style>
+    <body>
+        <div class="wrapper">
+            <!-- <% //Validacion de para que la contraseña no sea igual a la cedula
+                String DocStr = String.valueOf(usuarioEntrante.getCedula());
+                if (usuarioEntrante.DencryptarClave(usuarioEntrante.getPassword(), DocStr)) {
+            %>
+            <script>
+
+                $(document).ready(function () {
+                    $('#ModalCambio').modal('show');
+                });
+            </script>
+
+            <%
+                }
+
+            %> -->
+            <!-- Modal cambio de contraseña -->
+            <div class="modal" id="ModalCambio" tabindex="-1" data-bs-backdrop="static">
+                <form action="<%=request.getContextPath()%>/RestablecimientosContrase_as" method="post">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Por seguridad su contraseña la debe actualizar</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-md-12">
+                                    <img src="../IMG/id-facial.webp" class="mb-1" alt="alt" width="30px" height="30px"/>
+                                    <label for="numeroDocumento" class="form-label">N° Documento</label>
+                                    <input type="text" name="numeroDocumentoCambio" id="numeroDocumentoCambio" value="<%=EgresadoEnonctrado.getNumeroCedula()%>" class="form-control mb-3" readonly max="99999999999">
+
+                                    <img src="../IMG/establecer-la-contrasena.webp" alt="alt" width="30px" height="30px"/>
+                                    <label for="PasswordNueva" class="form-label">Contraseña nueva</label>
+                                    <input type="password" name="PasswordNueva" id="PasswordNueva" class="form-control mb-3" maxlength="50" required="">
+
+                                    <img src="../IMG/contrasena.png" alt="alt" width="30px" height="30px"/>
+                                    <label for="ConfirmacionPassword" class="form-label">Confirmacion de contraseña</label>
+                                    <input type="password" id="ConfirmacionPassword" name="ConfirmacionPassword" class="form-control mb-3" maxlength="50" required="">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button value="RestablcerPasswordHome" name="BtnRestablecer" class="btn btn-success">Cambiar contraseña</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="main">
+                <!-- Demo header-->
+                <!-- <section class="section-0 d-flex justify-content-between" style="background: #018E42">
+                    <h3 class="text-start mt-4" style="margin-left: 7px; font-family: serif ; ">Regional Sucre</h3>
+                    <img src="../IMG/Logo_Sena_Sin_Fondo.png" width="150px" height="200px" alt="alt" class="align-self-end img-fluid"/>
+                </section> -->
+                <!--Menu-->
+                <!-- <header style="font-family: monospace" class="header sticky-top">
+                    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                        <div class="container-fluid d-flex justify-content-between align-items-center">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <!--Boton Usuario y menu de Datos personales y cerrado de sesion -->
+                            <!-- <div class="navbar-brand order-lg-2" href="#">
+                                <strong class="h6 mb-0 font-weight-bold">
+                                    <div class="dropdown-center">
+                                        <button id="btn-message" class="button-message" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <div class="content-avatar">
+                                                <div class="status-user"></div>
+                                                <div class="avatar">
+                                                    <svg class="user-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path d="M12,12.5c-3.04,0-5.5,1.73-5.5,3.5s2.46,3.5,5.5,3.5,5.5-1.73,5.5-3.5-2.46-3.5-5.5-3.5Zm0-.5c1.66,0,3-1.34,3-3s-1.34-3-3-3-3,1.34-3,3,1.34,3,3,3Z"></path>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="notice-content" style="font-family: monospace">
+                                                <div class="username text-small"><%=usuarioEntrante.getNombre()%></div>
+                                                <div class="text-center text-small text-gray">Egresado</div>
+                                            </div>
+                                        </button>
+                                        <ul class="dropdown-menu text-center" style="font-family: monospace">
+                                            <li><a class="dropdown-item" href="../CerradoSession.jsp">Cerrado de Sesion</a></li>
+                                        </ul>
+                                    </div>
+                                </strong>
+                            </div>
+                            <!--Items del menu -->
+                            <!-- <div class="collapse navbar-collapse" id="navbarText">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="HomeEgresados_UI.jsp">Home</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </header> -->
+                <h1>HOla</h1>
+                
+                <hr>
+                <main class="content mb-3">
+                    <div class="container-fluid p-0" style="font-family: monospace">
+
+                        <div class="row">
+                            <section class="d-flex justify-content-between mb-3 mx-xxl-7">
+                                <h4 class="mt-4" style="margin-left: 17%">Datos de Egresados</h4>
+                            </section>
+                            <div class="col-12 col-md-12 col-xxl-8 d-flex order-3 order-xxl-2 mx-auto">
+                                <div class="card flex-fill" style="width: 1000px">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">Tus Datos</h5>
+                                    </div>
+                                    <div class="card-body px-4">
+                                        <form action="<%=request.getContextPath()%>/ModificacionEgresado" method="post">
+                                            <!--Seccion de datos Personales -->
+                                            <div class="row">
+                                                <h5 class="card-title mb-3">Informacion Personal</h5>
+                                                <div class="col-md-6">
+                                                    <div class="input-group mb-3">
+                                                        <input type="number" name="numeroDocumento" id="numeroDocumento" class="input" value="<%=EgresadoEnonctrado.getNumeroCedula()%>" readonly max="99999999999">
+                                                        <label for="numeroDocumento" class="user-label">N° Documento</label>
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" value="<%=EgresadoEnonctrado.getNombre()%>" name="nombres" id="nombres" class="input" readonly maxlength="45">
+                                                        <label for="nombres" class="user-label">Nombres</label>
+                                                    </div>
+
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" value="<%=EgresadoEnonctrado.getApellido()%>"  id="apellidos"name="apellidos" class="input" readonly maxlength="45">
+                                                        <label for="apellidos" class="user-label">Apellidos</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class=""></div>
+                                                        <select name="tipoDocumento" id="tipoDocumento" class="h-14 w-[100%] border border-black mb-3" required>
+                                                            <option class=""  value="<%=EgresadoEnonctrado.getTipoDocumentoID().getId()%>" ><%=EgresadoEnonctrado.getTipoDocumentoID().getNombre()%></option>
+                                                            <!-- <% for (Tipodocumento TipoDoc : listaTipoDoc) {
+                                                                    if (EgresadoEnonctrado.getTipoDocumentoID().getId() != TipoDoc.getId()) {
+                                                            %>
+                                                            <option value="<%=TipoDoc.getId()%>"><%=TipoDoc.getNombre()%></option>
+                                                            <%
+                                                        }
+                                                                }
+                                                                %> -->
+                                                        </select>
+                                                        <label for="tipoDocumento" class="user-label">Tipo de Documento</label>
+                                                    
+                                                        <select  name="sexo" id="sexo" class="h-14 w-[100%] border border-black mb-3" required>
+                                                            <option  value="<%=EgresadoEnonctrado.getSexoID().getId()%>" selected ><%=EgresadoEnonctrado.getSexoID().getNombre()%></option>
+                                                        <!-- <%
+                                                            for (Sexo sex : listaSexo) {
+                                                                if (EgresadoEnonctrado.getSexoID().getId() != sex.getId()) {
+                                                        %>
+                                                        <option value="<%=sex.getId()%>"><%=sex.getNombre()%></option>
+                                                        <%
+                                                                }
+                                                            }
+                                                            %> -->
+                                                        </select>
+                                                        
+                                                    <select name="tipoPoblacion" id="tipoPoblacion" class="h-14 w-[100%] border border-black mb-3" required>
+                                                        <option value="<%=EgresadoEnonctrado.getTipoPoblacionID().getId()%>" selected><%=EgresadoEnonctrado.getTipoPoblacionID().getNombre()%></option>
+                                                        <!-- <%
+                                                            for (TipoPoblacion TipoPoblacion : listaTipoPoblacion) {
+                                                                if (EgresadoEnonctrado.getTipoPoblacionID().getId() != TipoPoblacion.getId()) {
+
+
+                                                        %>
+                                                        <option value="<%=TipoPoblacion.getId()%>"><%=TipoPoblacion.getNombre()%></option>
+                                                        <%
+                                                    }
+                                                }
+                                                %> -->
+                                            </select>
+                                        </div>
+                                        </div>
+                                            </div>
+                                            <div class="row px-4">
+                                                <h5 class="card-title mb-3">Informacion Residencia y contactos</h5>
+                                                <div class="col-md-6">
+                                                    <div class="input-group">
+                                                        <input type="number" name="NumeroContacto" value="<%=EgresadoEnonctrado.getNumeroTelefono()%>" class="input mb-3" id="NumeroContacto" max="99999999999">
+                                                        <label for="ciudad" class="user-label">N° Contacto</label>
+                                                    </div>
+
+                                                    <div class="input-group">
+                                                        <input name="direccion" value="<%=EgresadoEnonctrado.getDireccionResidencia()%>" type="text" id="direccion" class="input mb-3" maxlength="100" placeholder="Opcional">
+                                                        <label for="direccion" class="user-label">Dirección</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="input-group">
+                                                        <input name="numFicha" type="number" id="numFicha" value="<%=EgresadoEnonctrado.getNumeroFicha()%>" class="input mb-3" max="99999999999" required>
+                                                        <label for="numCertificados" class="user-label">N° de Ficha</label>
+                                                    </div>
+
+                                                    <div class="input-group">
+                                                        <input name="correo" type="email" id="correo" class="input mb-3" value="<%=EgresadoEnonctrado.getCorreo()%>" maxlength="45">
+                                                        <label for="correo" class="user-label">Correo</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <!--Residencia -->
+                                                    <div class="col-md-12 mt-2 mb-3">
+                                                        <div class="d-flex align-content-center justify-content-start">
+                                                            <!-- Pregunta -->
+                                                            <label class="form-label mx-2">¿Reside en Colombia?</label>
+                                                            <br>
+                                                            <!-- Checkbox "Sí" -->
+                                                            <label class="switch">
+                                                                <!-- Esto estaba en el input <%= (EgresadoEnonctrado.getCiudadID() != null) ? "checked" : ""%> -->
+                                                                <input class="checkbox"  name="ResideEnColombia" type="checkbox" id="colombiaCheckbox" value="1" onchange="validarCheckboxes(), handleCheckboxChange(this, 'noColombiaCheckbox', 'ciudadesColombia', 'paisesExterior')">
+                                                                <span class="slider" for="colombiaCheckbox">Sí</span>
+                                                            </label>
+
+                                                            <!-- Checkbox "No" -->
+                                                            <div class="form-check form-check-inline">
+                                                                <!--Estaba en el input <%= (EgresadoEnonctrado.getPaisResidencia() != null) ? "checked" : ""%>  -->
+                                                                <input class="form-check-input" name="ResideEnColombia" type="checkbox" id="noColombiaCheckbox" value="0" onchange="validarCheckboxes(), handleCheckboxChange(this, 'colombiaCheckbox', 'ciudadesColombia', 'paisesExterior')">
+                                                                <label class="form-check-label" for="noColombiaCheckbox">No</label>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>  
+                                                <div class="col-md-12 d-flex align-content-center justify-content-center">
+                                                    <!-- Select de ciudades en Colombia -->
+                                                    <div id="ciudadesColombia" style="display: none; margin-top: 10px;">
+                                                        <select name="ciudad" id="ciudad" class="h-14 w-[100%] border border-black mb-3">
+                                                            <!-- <%
+                                                                for (Ciudad ciudad : listaCiudades) {
+                                                                    if (EgresadoEnonctrado.getCiudadID() != null && ciudad.getId() == EgresadoEnonctrado.getCiudadID().getId()) {
+                                                            %> -->
+                                                            <option value="<%=ciudad.getId()%>" selected><%=ciudad.getNombre()%></option>
+                                                            <!-- <%      } else {%> -->
+                                                            <option value="<%=ciudad.getId()%>"><%=ciudad.getNombre()%></option>
+                                                            <!-- <%      }
+                                                                }
+                                                            %> -->
+                                                        </select>
+                                                    </div>
+
+                                                    <!-- Select de países en el exterior -->
+                                                    <div id="paisesExterior" style="display: none; margin-top: 10px;">
+                                                        <select name="pais" name="PaisExterior" class="form-select mb-3">
+                                                            <!-- <%
+                                                                for (Paises pais : ListsPaises) {
+                                                                    if (EgresadoEnonctrado.getPaisResidencia() != null && pais.getId() == EgresadoEnonctrado.getPaisResidencia().getId()) {
+                                                            %>
+                                                            <option value="<%=pais.getId()%>" selected><%=pais.getNombre()%></option>
+                                                            <%      } else {%>
+                                                            <option value="<%=pais.getId()%>"><%=pais.getNombre()%></option>
+                                                            <%      }
+                                                                }
+                                                            %> -->
+                                                        </select>
+                                                        <!-- Agregar más opciones según sea necesario -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--Informacion Laboral -->
+                                            <h5 class="card-title mb-3">Informacion Academica</h5>
+                                            <div class="row mb-5 px-4">
+                                                <div class="col-md-4">
+                                                    <label for="sede" class="form-label">Sede</label>
+                                                    <select name="sede" id="sede" class="h-14 w-[100%] border border-black mb-3">
+                                                        <option value="<%=EgresadoEnonctrado.getSedeID().getId()%>" selected ><%=EgresadoEnonctrado.getSedeID().getNombre()%></option>
+                                                        <!-- <%
+                                                            for (Sede sede : ListaSedes) {
+                                                                if (EgresadoEnonctrado.getSedeID().getId() != sede.getId()) {
+                                                        %>
+                                                        <option value="<%=sede.getId()%>"><%=sede.getNombre()%></option>
+                                                        <%
+                                                                }
+                                                            }
+                                                        %> -->
+                                                    </select>
+
+                                                    <!-- Pregunta y check Box sobre cadena de formacion -->
+                                                    <div>
+                                                        <!-- Pregunta -->
+                                                        <label class="form-label mx-2">¿Cadena de formación?</label>
+                                                        <br>
+                                                        <!-- Checkbox "Sí" -->
+                                                        <div class="form-check form-check-inline mx-4">
+                                                            <!-- <% if (EgresadoEnonctrado.getCadenaFormacion()) { %> checked <% } %>  -->
+                                                            <input name="CadenaFormacion" class="form-check-input" type="checkbox" id="siCheckbox" value="1" onchange="mostrarOcultarInput(this.checked, 'miInputContainerCadena', 'siCheckbox', 'noCheckbox'), validarCheckboxes();">
+                                                            <label class="form-check-label" for="siCheckbox">Sí</label>
+                                                        </div>
+
+                                                        <!-- Checkbox "No" -->
+                                                        <div class="form-check form-check-inline">
+                                                            <!-- <% if (!EgresadoEnonctrado.getCadenaFormacion()) { %> checked <% }%>  -->
+                                                            <input name="CadenaFormacion" class="form-check-input" type="checkbox" id="noCheckbox" value="0" onchange="mostrarOcultarInput(!this.checked, 'miInputContainerCadena', 'siCheckbox', 'noCheckbox'), validarCheckboxes();">
+                                                            <label class="form-check-label" for="noCheckbox">No</label>
+                                                        </div>
+                                                        <!-- Contenedor del input -->
+                                                        <div id="miInputContainerCadena" style="display: none; margin-top: 10px;">
+                                                            <input name="FormacionCursada" class="form-control mb-3" type="text" id="containerCursada" placeholder="Formacion Cursada" value="<%=FormacionCursada%>">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label for="formacion" class="form-label">Formación</label>
+                                                    <select name="formacion" id="formacion" class="h-14 w-[100%] border border-black mb-3">
+                                                        <option value="<%=EgresadoEnonctrado.getFormacionID().getId()%>" selected ><%=EgresadoEnonctrado.getFormacionID().getNombre()%></option>
+                                                        <!-- <%
+                                                            for (Formacion formacion : listaFormacion) {
+                                                                if (EgresadoEnonctrado.getFormacionID().getId() != formacion.getId()) {
+
+
+                                                        %>
+                                                        <option value="<%=formacion.getId()%>"><%=formacion.getNombre()%></option>
+                                                        <%
+                                                                }
+                                                            }
+                                                        %> -->
+                                                    </select>
+                                                    <!-- Pregunta y check Box sobre Experiencia -->
+                                                    <div >
+                                                        <!-- Pregunta -->
+                                                        <label class="form-label mx-2">¿Experiencia Laboral?</label>
+                                                        <br>
+                                                        <!-- Checkbox "Sí" -->
+                                                        <div class="form-check form-check-inline mx-4">
+                                                            <!-- <% if (EgresadoEnonctrado.getExperiencia()) { %> checked <% } %> -->
+                                                            <input value="1" name="Experiencia" class="form-check-input" type="checkbox" id="siCheckboxExp" onchange="mostrarOcultarInput(this.checked, 'miInputContainerExp', 'siCheckboxExp', 'noCheckboxExp'), validarCheckboxes()">
+                                                            <label class="form-check-label" for="siCheckbox">Sí</label>
+                                                        </div>
+
+                                                        <!-- Checkbox "No" -->
+                                                        <div class="form-check form-check-inline">
+                                                            <!-- <% if (!EgresadoEnonctrado.getExperiencia()) { %> checked <% }%>  -->
+                                                            <input value="0" name="Experiencia" class="form-check-input" type="checkbox" id="noCheckboxExp" onchange="mostrarOcultarInput(!this.checked, 'miInputContainerExp', 'siCheckboxExp', 'noCheckboxExp'), validarCheckboxes()">
+                                                            <label class="form-check-label" for="noCheckbox">No</label>
+                                                        </div>
+
+                                                        <!-- Contenedor del input -->
+                                                        <div id="miInputContainerExp" style="display: none; margin-top: 10px;">
+                                                            <textarea id="" name="ExperienciaDescrip" rows="5" cols="" class="form-control" placeholder="Describa su experiencia maximo(300 caracteres)" maxlength="300"><%=DescripcionExperiencia%></textarea>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label for="nivelFormacion" class="form-label">Nivel de Formación</label>
+                                                    <select name="nivelFormacion" id="nivelFormacion" class="h-14 w-[100%] border border-black mb-3">
+                                                        <option value="<%=EgresadoEnonctrado.getNivelFormacionID().getId()%>" selected><%=EgresadoEnonctrado.getNivelFormacionID().getNombre()%></option>
+                                                        <!-- <%
+                                                            for (NivelFormacion NivelFormacion : listaNivelFormacion) {
+                                                                if (EgresadoEnonctrado.getNivelFormacionID().getId() != NivelFormacion.getId()) {
+
+
+                                                        %> -->
+                                                        <option value="<%=NivelFormacion.getId()%>"><%=NivelFormacion.getNombre()%></option>
+                                                        <!-- // <%
+                                                        //         }
+                                                        //     }
+                                                        // %> -->
+                                                    </select>
+
+                                                    <!-- Pregunta y check Box sobre Carrera Universitaria -->
+                                                    <div>
+                                                        <!-- Pregunta -->
+                                                        <label class="form-label mx-2">¿Carrera Univerisitaria?</label>
+                                                        <br>
+                                                        <!-- Checkbox "Sí" -->
+                                                        <div class="form-check form-check-inline mx-4">
+                                                            <!-- <% if (EgresadoEnonctrado.getCadenaUniversitaria()) { %> checked <% }%>  -->
+                                                            <input value="1" name="CarreraUniversitaria" class="form-check-input" type="checkbox" id="siCheckboxUni" value="<%=EgresadoEnonctrado.getCadenaUniversitaria()%>" onchange="mostrarOcultarInput(this.checked, 'miInputContainerUni', 'siCheckboxUni', 'noCheckboxUni'), validarCheckboxes()">
+                                                            <label class="form-check-label" for="siCheckboxUni">Sí</label>
+                                                        </div>
+
+                                                        <!-- Checkbox "No" -->
+                                                        <div class="form-check form-check-inline">
+                                                            <!-- <% if (!EgresadoEnonctrado.getCadenaUniversitaria()) { %> checked <% }%>  -->
+                                                            <input value="0" name="CarreraUniversitaria" class="form-check-input" type="checkbox" id="noCheckboxUni" value="0" onchange="mostrarOcultarInput(!this.checked, 'miInputContainerUni', 'siCheckboxUni', 'noCheckboxUni'), validarCheckboxes()">
+                                                            <label class="form-check-label" for="noCheckboxUni">No</label>
+                                                        </div>
+
+                                                        <!-- Contenedor del input -->
+                                                        <div id="miInputContainerUni" style="display: none; margin-top: 10px;">
+                                                            <input class="form-control mb-3" type="text" maxlength="100" id="miInput" name="NombreUni" placeholder="Nombre Univerisad" value="<%=nombreUniversidad%>">
+                                                            <input class="form-control mb-3" type="text" maxlength="100" id="miInput" name="NombreCarrera" placeholder="Nombre Carrera" value="<%=Carrera%>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- Pregunta y check Box su estdo de trabajo -->
+                                                <div class="d-flex justify-content-start" >
+                                                    <!-- Pregunta -->
+                                                    <label class="form-label mx-2">¿Se encuentra trabajando actualmente?</label>
+                                                    <br>
+                                                    <!-- Checkbox "Sí" -->
+                                                    <div class="form-check form-check-inline mx-4">
+                                                        <!-- <% if (EgresadoEnonctrado.getTrabajando() == 1) {%> checked <%}%>  -->
+                                                        <input class="form-check-input" type="checkbox" name="trabajando" id="siCheckboxTraba" value="1" onchange="validarCheckboxes(); uncheckCheckboxIndepen('noCheckboxTraba', 'CheckboxTrabaInde'), cheackboxTrabajo()">
+                                                        <label class="form-check-label" for="siCheckbox">Sí</label>
+                                                    </div>
+                                                    <!-- Checkbox "No" -->
+                                                    <div class="form-check form-check-inline">
+                                                        <!-- <% if (EgresadoEnonctrado.getTrabajando() == 0) {%> checked <%}%> -->
+                                                        <input class="form-check-input" name="trabajando" type="checkbox" id="noCheckboxTraba" name="trabajando" value="0"  onchange="validarCheckboxes(); uncheckCheckboxIndepen('siCheckboxTraba', 'CheckboxTrabaInde'), cheackboxTrabajo()">
+                                                        <label class="form-check-label" for="noCheckbox">No</label>
+                                                    </div>
+                                                    <!-- Checkbox independiente -->
+                                                    <div class="form-check form-check-inline">
+                                                        <!-- <% if (EgresadoEnonctrado.getTrabajando() == 2) {%> checked <%}%>   -->
+                                                        <input class="form-check-input" type="checkbox" id="CheckboxTrabaInde" name="trabajando" value="2" onchange="validarCheckboxes(); uncheckCheckboxIndepen('siCheckboxTraba', 'noCheckboxTraba'), cheackboxTrabajo()">
+                                                        <label class="form-check-label" for="noCheckbox">Independiente</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row mb-2">
+                                                <div class="col-md-3"></div>
+                                                <!-- Contenedor del input -->
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mt-2" id="miInputContainerIndependiente"  style="display: none; margin-top: 10px;">
+                                                        <textarea  maxlength="300" class="form-control" placeholder="De una breve descripcion a lo que se dedica" name="IndependienteDescripcion" id="IndependienteDescripcion" style="height: 100px"><%=DescripcionIndependiente%></textarea>
+                                                        <label for="floatingTextarea2">Describa su trabajo</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3"></div>
+                                            </div>
+
+                                            <!-- Preguntas de investigacion -->
+                                            <div class="row mb-1" id="containerInvestigacion" style="display: none;">
+                                                <div class="row mx-7">
+                                                    <div class="col-md-6">
+                                                        <!-- Pregunta Semillero-->
+                                                        <label class="form-label mx-2">¿Se encuentra vinculado en algun semillero?</label>
+                                                        <br>
+                                                        <!-- Checkbox "Sí" -->
+                                                        <div class="form-check form-check-inline mt-2"style="margin-left: 20%">
+                                                            <!-- <% if (EgresadoEnonctrado.getSemillero() != null && EgresadoEnonctrado.getSemillero() == 1) { %> checked <% } %> -->
+                                                            <input name="semillero" class="form-check-input" type="checkbox" id="siCheckboxSemillero" value="1" onchange="uncheckCheckbox('noCheckboxSemillero'), mostrarOcultarInput(this.checked, 'miInputContainerDescripcionSemillero', 'siCheckboxSemillero', 'noCheckboxSemillero'), validarCheckboxes()">
+                                                            <label class="form-check-label" for="additionalSiCheckbox">Sí</label>
+                                                        </div>
+                                                        <!-- Checkbox "No" -->
+                                                        <div class="form-check form-check-inline mt-2">
+                                                            <!-- <% if (EgresadoEnonctrado.getSemillero() != null && EgresadoEnonctrado.getSemillero() == 0) { %> checked <% }%>  -->
+                                                            <input name="semillero" class="form-check-input" type="checkbox" id="noCheckboxSemillero" value="0" onchange="uncheckCheckbox('siCheckboxSemillero'), mostrarOcultarInput(!this.checked, 'miInputContainerDescripcionSemillero', 'siCheckboxSemillero', 'noCheckboxSemillero'), validarCheckboxes()">
+                                                            <label class="form-check-label" for="additionalNoCheckbox">No</label>
+                                                        </div>
+                                                        <div class="form-floating" id="miInputContainerDescripcionSemillero"  style="display: none;">
+                                                            <textarea class="form-control" placeholder="De una breve descripcion" name="DescripcionSemillero" maxlength="300" id="DescripcionSemillero" style="height: 100px; width: 300px"><%=DescripcionSemillero%></textarea>
+                                                            <label for="floatingTextarea2">¿De que trata su Semillero?</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <!-- Pregunta Investigacion -->
+                                                        <label class="form-label mx-2">¿Esta desarrollando alguna investigacion?</label>
+                                                        <br>
+
+                                                        <!-- Checkbox "Sí" -->
+                                                        <div class="form-check form-check-inline mx-7 mt-2" style="margin-left: 20%">
+                                                             <!-- <% if (EgresadoEnonctrado.getInvestigacion() != null && EgresadoEnonctrado.getInvestigacion() == 1) { %> checked <% } %>  -->
+                                                            <input name="Investigacion" class="form-check-input" type="checkbox" id="siCheckboxInvestigacion" value="1" onchange="uncheckCheckbox('noCheckboxInvestigacion'), mostrarOcultarInput(this.checked, 'miInputContainerDescripcionInves', 'siCheckboxInvestigacion', 'noCheckboxInvestigacion'), validarCheckboxes()">
+                                                            <label class="form-check-label" for="additionalSiCheckbox">Sí</label>
+                                                        </div>
+                                                        <!-- Checkbox "No" -->
+                                                        <div class="form-check form-check-inline mt-2">
+                                                            <!-- <% if (EgresadoEnonctrado.getInvestigacion() != null && EgresadoEnonctrado.getInvestigacion() == 0) { %> checked <% }%> -->
+                                                            <input name="Investigacion"  class="form-check-input" type="checkbox" id="noCheckboxInvestigacion" value="0" onchange="uncheckCheckbox('siCheckboxInvestigacion'), mostrarOcultarInput(!this.checked, 'miInputContainerDescripcionInves', 'siCheckboxInvestigacion', 'noCheckboxInvestigacion'), validarCheckboxes()">
+                                                            <label class="form-check-label" for="additionalNoCheckbox">No</label>
+                                                        </div>
+                                                        <div class="form-floating mt-2" id="miInputContainerDescripcionInves"  style="display: none;">
+                                                            <textarea name="InvestigacionDescripcion" class="form-control mx-4" placeholder="De una breve descripcion" name="DescripcionInvestigacion" maxlength="300" id="DescripcionInvestigacion" style="height: 100px ; width: 350px"><%=DescripcionInvestigacion%></textarea>
+                                                            <label class="mx-4" for="floatingTextarea2">¿De que trata su investigacion?</label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>       
+
+                                            <div class="row ">
+                                                <div class="col-md-6 mt-3">
+                                                    <!-- Pregunta de matriz de pertenencia -->
+                                                    <div class="d-flex justify-content-center">
+                                                        <!-- Pregunta -->
+                                                        <label class="form-label mx-2">¿Su trabajo actual esta relacionado con lo que estudio?</label>
+                                                        <br>
+                                                        <!-- Checkbox "Sí" -->
+                                                        <div class="form-check form-check-inline mx-4">
+                                                            <!-- <% if (EgresadoEnonctrado.getMatrizPertenecia() != null && EgresadoEnonctrado.getMatrizPertenecia() == 1) { %> checked <% } %>  -->
+                                                            <input name="MatrizPertenencia" class="form-check-input" type="checkbox" id="siCheckboxMatriz" value="1" onchange="uncheckCheckbox('noCheckboxMatriz'), validarCheckboxes()">
+                                                            <label class="form-check-label" for="siCheckboxMatriz">Sí</label>
+                                                        </div>
+                                                        <!-- Checkbox "No" -->
+                                                        <div class="form-check form-check-inline">
+                                                            <!-- <% if (EgresadoEnonctrado.getMatrizPertenecia() != null && EgresadoEnonctrado.getMatrizPertenecia() == 0) { %> checked <% }%>  -->
+                                                            <input name="MatrizPertenencia" class="form-check-input" type="checkbox" id="noCheckboxMatriz" value="0" onchange="uncheckCheckbox('siCheckboxMatriz'), validarCheckboxes()">
+                                                            <label class="form-check-label" for="noCheckboxMatriz">No</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6  mt-3">
+                                                    <!-- Select de Rango de ganancias -->
+                                                    <label class="form-label mx-2">¿Cual es su estimado de ingresos?</label>
+                                                    <div id="RangoSalario">
+                                                        <select name="nivelSalario" class="form-select mb-3" required="">
+                                                            <!-- <%
+                                                                if (EgresadoEnonctrado.getNivelSalario() == null) {
+                                                            %> -->
+                                                            <option value="" selected>Seleccione su salario</option>
+                                                            <!-- <%
+                                                            } else {
+                                                            %> -->
+                                                            <option value="<%=EgresadoEnonctrado.getNivelSalario().getId()%>" selected><%=EgresadoEnonctrado.getNivelSalario().getNombre()%></option>
+                                                            <!-- <%
+                                                                }
+                                                                for (NivelSalario Nivelsalario : ListaNivelSlario) {
+                                                                    if (EgresadoEnonctrado.getNivelSalario() == null || EgresadoEnonctrado.getNivelSalario().getId() != Nivelsalario.getId()) {
+                                                            %> -->
+                                                            <option value="<%=Nivelsalario.getId()%>"><%=Nivelsalario.getNombre()%></option>
+                                                            <!-- <%
+                                                                    }
+                                                                }
+                                                            %> -->
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-grid mx-auto"> 
+
+                                                <button value="Modificar" name="BtnEgresados" class="btn mx-auto text-white "data-bs-toggle="popover" data-bs-trigger="manual" data-bs-content="Por favor complete todos los cheackboxs" style="background: #018E42" >Modificar</button>
+
+                                            </div>
+
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <!-- <%@include file="../Components/footerHomeEgresados.jsp" %> -->
+            </div>
+        </div>
+        <!-- <%            String res = request.getParameter("respuesta");
+
+            if (res != null) {
+                switch (res) {
+                    case "SinCambios":
+        %> -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header  text-white" style="background: #018E42">
+                    <strong class="me-auto ">Upps!!</strong>
+                    <small>Ahora</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    No se encontraron Cambios!!
+                </div>
+            </div>
+        </div>
+        <!-- <%
+                break;
+            case "ModificacionExitosa":
+
+        %> -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header  text-white" style="background: #018E42">
+                    <strong class="me-auto ">Exito!!</strong>
+                    <small>Ahora</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Modificacion Exitosa!!
+                </div>
+            </div>
+        </div>
+        <!-- <%                        break;
+
+            case "ContrasenhaNoiguales":
+        %> -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header  text-white" style="background: #018E42">
+                    <strong class="me-auto ">upps!!</strong>
+                    <small>Ahora</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Confirmacion no valida!!
+                </div>
+            </div>
+        </div>
+
+        <!-- <%
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+
+        %> -->
+
+    </body>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
+    </script>
+    <script src="../JS/LogicaCheakBox.js"></script>
+    <script src="../JS/LogicaCheackBoxModificacionEgresados.js"></script>
+    <script src="../JS/IniciarToast.js"></script>
+
+    <script>
+                                                                function cheackboxTrabajo() {
+                                                                    var siCheckboxTraba = document.getElementById("siCheckboxTraba");
+                                                                    //var noCheckboxTraba = document.getElementById("noCheckboxTraba");
+                                                                    var checkboxTrabaInde = document.getElementById("CheckboxTrabaInde");
+                                                                    var additionalDiv = document.getElementById("containerInvestigacion");
+                                                                    // Mostrar u ocultar el div adicional si "Sí" o "Independiente" están seleccionados
+                                                                    if (siCheckboxTraba.checked || checkboxTrabaInde.checked) {
+                                                                        additionalDiv.style.display = 'block';
+                                                                    } else {
+                                                                        additionalDiv.style.display = 'none';
+                                                                    }
+                                                                    // Mostrar u ocultar el textarea si "Independiente" está seleccionado
+                                                                    var miInputContainerIndependiente = document.getElementById("miInputContainerIndependiente");
+                                                                    miInputContainerIndependiente.style.display = checkboxTrabaInde.checked ? 'block' : 'none';
+                                                                }
+
+
+
+                                                                function validarCheckboxes() {
+                                                                    var siCheckboxExp = document.getElementById("siCheckboxExp");
+                                                                    var noCheckboxExp = document.getElementById("noCheckboxExp");
+                                                                    var siCheckboxUni = document.getElementById("siCheckboxUni");
+                                                                    var noCheckboxUni = document.getElementById("noCheckboxUni");
+                                                                    var siCheckboxCadena = document.getElementById("siCheckbox");
+                                                                    var noCheckboxCadena = document.getElementById("noCheckbox");
+                                                                    var siCheckboxTraba = document.getElementById("siCheckboxTraba");
+                                                                    var noCheckboxTraba = document.getElementById("noCheckboxTraba");
+                                                                    var CheckboxTrabaIndepen = document.getElementById("CheckboxTrabaInde");
+                                                                    var siCheckboxResideColombia = document.getElementById("colombiaCheckbox");
+                                                                    var noCheckboxResideColombia = document.getElementById("noColombiaCheckbox");
+                                                                    var siMatrizPertenecia = document.getElementById('siCheckboxMatriz');
+                                                                    var noMatrizPertenencia = document.getElementById('noCheckboxMatriz');
+                                                                    var submitButton = document.querySelector("[name='BtnEgresados']");
+                                                                    // Verificar si al menos un checkbox de cada grupo está seleccionado
+                                                                    var experienciaLaboralSeleccionada = siCheckboxExp.checked || noCheckboxExp.checked;
+                                                                    var carreraUniversitariaSeleccionada = siCheckboxUni.checked || noCheckboxUni.checked;
+                                                                    var cadenaFormacionSeleccionada = siCheckboxCadena.checked || noCheckboxCadena.checked;
+                                                                    var trabajandoSeleccionado = siCheckboxTraba.checked || noCheckboxTraba.checked || CheckboxTrabaIndepen.checked;
+                                                                    var resideEnColombiaSeleccionado = siCheckboxResideColombia.checked || noCheckboxResideColombia.checked;
+                                                                    var matrizPertenenciaSeleccionado = siMatrizPertenecia.checked || noMatrizPertenencia.checked;
+                                                                    let trabajando_o_Independiente = siCheckboxTraba.checked || CheckboxTrabaIndepen.checked;
+                                                                    if (trabajando_o_Independiente) {
+                                                                        // Habilitar el botón de enviar si al menos un checkbox de cada grupo está seleccionado
+                                                                        // Verificar si al menos uno de los checkboxes de semillero o investigación está seleccionado
+                                                                        var semilleroSeleccionado = siCheckboxSemillero.checked || noCheckboxSemillero.checked;
+                                                                        var investigacionSeleccionada = siCheckboxInvestigacion.checked || noCheckboxInvestigacion.checked;
+                                                                        submitButton.disabled = !(experienciaLaboralSeleccionada && semilleroSeleccionado && investigacionSeleccionada && carreraUniversitariaSeleccionada && cadenaFormacionSeleccionada && trabajandoSeleccionado && resideEnColombiaSeleccionado && matrizPertenenciaSeleccionado);
+                                                                    } else {
+                                                                        // Habilitar el botón de enviar si al menos un checkbox de cada grupo está seleccionado
+                                                                        submitButton.disabled = !(experienciaLaboralSeleccionada && carreraUniversitariaSeleccionada && cadenaFormacionSeleccionada && trabajandoSeleccionado && resideEnColombiaSeleccionado && matrizPertenenciaSeleccionado);
+                                                                    }
+
+
+
+                                                                    // Obtener el Popover asociado al botón
+                                                                    var popover = bootstrap.Popover.getInstance(submitButton);
+
+                                                                    // Mostrar u ocultar el popover según el estado del botón
+                                                                    if (submitButton.disabled) {
+                                                                        // Mostrar el popover si no está visible
+                                                                        if (!popover) {
+                                                                            popover = new bootstrap.Popover(submitButton);
+                                                                        }
+                                                                        popover.show();
+                                                                    } else {
+                                                                        // Ocultar el popover si está visible
+                                                                        if (popover) {
+                                                                            popover.hide();
+                                                                        }
+                                                                    }
+                                                                }
+
+
+
+
+    </script>
+
+</html>
+<!-- <%}%> -->
